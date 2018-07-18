@@ -51,7 +51,8 @@ jobs:
     steps:
       - checkout    
       # Download and cache dependencies
-      - run: mvn -s .circleci/.circleci.settings.xml test
+      #- run: mvn -s .circleci/.circleci.settings.xml test
+      - run: mvn -o surefire:test
       - run:
           name: Save test results
           command: |
