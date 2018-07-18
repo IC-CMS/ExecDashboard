@@ -51,8 +51,7 @@ jobs:
     steps:
       - checkout    
       # Download and cache dependencies
-      - run: cd exec-ui
-      - run: mvn -s ../.circleci/.circleci.settings.xml surefire:test
+      - run: mvn -s .circleci/.circleci.settings.xml clean dependency:resolve-plugins test
       - run:
           name: Save test results
           command: |
