@@ -26,6 +26,7 @@ core/src/generated
 target
 exec-ui/node
 exec-ui/src/app/local-testing.js
+exec-ui/package-lock.json
 *.releaseBackup
 docker-compose.override.yml
 logs
