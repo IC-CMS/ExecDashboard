@@ -62,23 +62,6 @@
         </developer>
     </developers>
 
-    <!--<scm>
-        <connection>scm:git:https://github.com/capitalone/Hygieia.git/</connection>
-        <developerConnection>scm:git:https://github.com/capitalone/Hygieia.git/</developerConnection>
-        <url>https://github.com/capitalone/Hygieia.git</url>
-        <tag>HEAD</tag>
-    </scm>-->
-
-    <!--<distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>-->
     <distributionManagement>
         <repository>
             <id>bintray-ic-cms-Maven</id>
