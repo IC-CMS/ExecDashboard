@@ -13,7 +13,7 @@
     <parent>
         <artifactId>HygieiaExec</artifactId>
         <groupId>com.capitalone.dashboard</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>1.0.0-BUILDNUMBER</version>
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,13 +24,10 @@
     </properties>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>bintray-ic-cms-Maven</id>
+            <name>ic-cms-Maven</name>
+            <url>https://api.bintray.com/maven/ic-cms/Maven/hygieia-exec-core/;publish=1</url>
         </repository>
     </distributionManagement>
 
