@@ -24,12 +24,12 @@
     </dependencies>
     <packaging>pom</packaging>
 
-    <!--<groupId>com.capitalone.dashboard</groupId>
+    <groupId>com.capitalone.dashboard</groupId>
     <artifactId>HygieiaExec</artifactId>
-    <version>1.0.0-SNAPSHOT</version>-->
-    <groupId>cms.sre</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+    <!--<groupId>cms.sre</groupId>
     <artifactId>ExecDashboard</artifactId>
-    <version>1.0.BUILDNUMBER</version>
+    <version>1.0.BUILDNUMBER</version>-->
     
 
     <parent>
