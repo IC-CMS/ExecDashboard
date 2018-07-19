@@ -57,7 +57,7 @@
         <tag>HEAD</tag>
     </scm>
 
-    <distributionManagement>
+    <!--<distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -65,6 +65,13 @@
         <repository>
             <id>ossrh</id>
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>-->
+    <distributionManagement>
+        <repository>
+            <id>bintray-ic-cms-Maven</id>
+            <name>ic-cms-Maven</name>
+            <url>https://api.bintray.com/maven/ic-cms/Maven/ExecDashboard/;publish=1</url>
         </repository>
     </distributionManagement>
 
