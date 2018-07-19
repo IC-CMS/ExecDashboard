@@ -3,7 +3,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <name>${project.groupId}:${project.artifactId}</name>
+    <!--<name>${project.groupId}:${project.artifactId}</name>-->
     <modules>
         <module>exec-core</module>
         <module>exec-analysis</module>
@@ -24,9 +24,13 @@
     </dependencies>
     <packaging>pom</packaging>
 
-    <groupId>com.capitalone.dashboard</groupId>
+    <!--<groupId>com.capitalone.dashboard</groupId>
     <artifactId>HygieiaExec</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>-->
+    <groupId>cms.sre</groupId>
+    <artifactId>ExecDashboard</artifactId>
+    <version>1.0.BUILDNUMBER</version>
+    
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -50,12 +54,12 @@
         </developer>
     </developers>
 
-    <scm>
+    <!--<scm>
         <connection>scm:git:https://github.com/capitalone/Hygieia.git/</connection>
         <developerConnection>scm:git:https://github.com/capitalone/Hygieia.git/</developerConnection>
         <url>https://github.com/capitalone/Hygieia.git</url>
         <tag>HEAD</tag>
-    </scm>
+    </scm>-->
 
     <!--<distributionManagement>
         <snapshotRepository>
