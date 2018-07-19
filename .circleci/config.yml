@@ -80,6 +80,10 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" pom.xml
+      - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-analysis/pom.xml
+      - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-api/pom.xml
+      - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-core/pom.xml
+      - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-ui/pom.xml
       - run: mvn -s .circleci/.circleci.settings.xml deploy -DskipTests
   publish:
     machine:
