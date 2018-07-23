@@ -77,7 +77,7 @@ jobs:
 
     steps:
       - checkout
-      - run: cd exec-ui
+      - run: ls -al
       - run: npm run lint
 
   test:
