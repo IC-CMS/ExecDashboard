@@ -168,9 +168,9 @@ workflows:
     jobs: 
       - test
       - packagejs
-      - package
-          #requires:
-            #- test
+      - package:
+          requires:
+            - test
       - deploy:
           requires:
             - test
