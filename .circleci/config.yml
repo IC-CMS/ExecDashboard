@@ -55,10 +55,15 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}      
-      - run: mkdir -p java-target && mkdir -p /tmp/workspace/ && cp -r java-target /tmp/workspace && cp Dockerfile /tmp/workspace/java-target/
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run: pwd
+      - run: ls -al
+      - run: mkdir -p /tmp/workspace/exec-analysis && mkdir -p /tmp/workspace/exec-api && mkdir -p /tmp/workspace/exec-core
+      - run: cp -r exec-analysis/target/. /tmp/workspace/exec-analysis && cp exec-analysis/Dockerfile /tmp/workspace/exec-analysis
+      - run: cp -r exec-api/target/. /tmp/workspace/exec-api && cp exec-api/Dockerfile /tmp/workspace/exec-api
+      - run: cp -r exec-core/target/. /tmp/workspace/exec-core && cp exec-core/Dockerfile /tmp/workspace/exec-core
       - persist_to_workspace:
-          root: /tmp/workspace/java-target
+          root: /tmp/workspace/
           paths:
             - ./*
             - ./*.jar
@@ -74,7 +79,7 @@ jobs:
     steps:
       - checkout    
       # Download and cache dependencies
-      - run: mvn -s .circleci/.circleci.settings.xml clean dependency:resolve-plugins test
+      - run: mvn -s .circleci/.circleci.settings.xml clean test
       - run:
           name: Save test results
           command: |
@@ -113,9 +118,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - attach_workspace:
-          at: /tmp/workspace/java-target
-      - run: ls -lart /tmp/workspace/java-target
-      - run: mkdir analysis-target && mv /tmp/workspace/java-target/exec-analysis-*.jar analysis-target/exec-analysis.jar && mv /tmp/workspace/java-target/Dockerfile ./Dockerfile
+          at: /tmp/workspace/exec-analysis
+      - run: ls -lart /tmp/workspace/exec-analysis/target
+      - run: mkdir analysis-target && mv /tmp/workspace/exec-analysis/target/exec-analysis-*.jar analysis-target/exec-analysis.jar && mv /tmp/workspace/exec-analysis/Dockerfile ./Dockerfile
       - run: |
           TAG=1.1.$CIRCLE_BUILD_NUM
           docker build -t sredna/hygieia-exec-analysis:$TAG .
@@ -129,9 +134,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - attach_workspace:
-          at: /tmp/workspace/java-target
-      - run: ls -lart /tmp/workspace/java-target
-      - run: mkdir core-target && mv /tmp/workspace/java-target/exec-core-*.jar core-target/exec-core.jar && mv /tmp/workspace/java-target/Dockerfile ./Dockerfile
+          at: /tmp/workspace/exec-core
+      - run: ls -lart /tmp/workspace/exec-core/target
+      - run: mkdir core-target && mv /tmp/workspace/exec-core/target/exec-core-*.jar core-target/exec-core.jar && mv /tmp/workspace/exec-core/Dockerfile ./Dockerfile
       - run: |
           TAG=1.1.$CIRCLE_BUILD_NUM
           docker build -t sredna/hygieia-exec-core:$TAG .
@@ -145,9 +150,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - attach_workspace:
-          at: /tmp/workspace/java-target
-      - run: ls -lart /tmp/workspace/java-target
-      - run: mkdir api-target && mv /tmp/workspace/java-target/exec-api-*.jar core-target/exec-api.jar && mv /tmp/workspace/java-target/Dockerfile ./Dockerfile
+          at: /tmp/workspace/exec-api
+      - run: ls -lart /tmp/workspace/exec-api/target
+      - run: mkdir api-target && mv /tmp/workspace/exec-api/target/exec-api-*.jar api-target/exec-api.jar && mv /tmp/workspace/exec-api/Dockerfile ./Dockerfile
       - run: |
           TAG=1.1.$CIRCLE_BUILD_NUM
           docker build -t sredna/hygieia-exec-api:$TAG .
@@ -163,7 +168,7 @@ workflows:
       - packagejs
       - package:
           requires:
-            - test      
+            - test
       - deploy:
           requires:
             - test
