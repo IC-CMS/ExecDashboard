@@ -62,7 +62,6 @@ jobs:
       - run: cp -r exec-analysis/target/. /tmp/workspace/exec-analysis && cp exec-analysis/Dockerfile /tmp/workspace/exec-analysis
       - run: cp -r exec-api/target/. /tmp/workspace/exec-api && cp exec-api/Dockerfile /tmp/workspace/exec-api
       - run: cp -r exec-core/target/. /tmp/workspace/exec-core && cp exec-core/Dockerfile /tmp/workspace/exec-core
-      - run: ls -al
       - persist_to_workspace:
           root: /tmp/workspace/
           paths:
@@ -167,9 +166,9 @@ workflows:
     jobs: 
       - test
       - packagejs
-      - package
-          #requires:
-           # - test
+      - package:
+          requires:
+            - test
       - deploy:
           requires:
             - test
