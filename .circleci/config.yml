@@ -165,7 +165,7 @@ workflows:
   version: 2
   full_boat:
     jobs: 
-      #- test
+      - test
       - packagejs
       - package
           #requires:
