@@ -20,11 +20,11 @@ jobs:
     steps:
       - checkout
 
-      run:
-        command: |
-          cd exec-ui
-          npm install
-          mkdir -p node-target && mkdir -p /tmp/workspace/ && cp -r node-target /tmp/workspace && cp Dockerfile /tmp/workspace/node-target/
+      - run:
+          command: |
+            cd exec-ui
+            npm install
+            mkdir -p node-target && mkdir -p /tmp/workspace/ && cp -r node-target /tmp/workspace && cp Dockerfile /tmp/workspace/node-target/
 
       - persist_to_workspace:
           root: /tmp/workspace/node-target
