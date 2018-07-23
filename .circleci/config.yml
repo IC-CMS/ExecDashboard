@@ -77,12 +77,10 @@ jobs:
 
     steps:
       - checkout
-      - run: ls -al
-      - run: cd exec-ui
-      - run: pwd
-      - run: ls -al
-      - run: npm run lint
-
+      - run:
+          command: |
+            cd exec-ui
+            npm run lint
   test:
     docker:
       # specify the version you desire here
