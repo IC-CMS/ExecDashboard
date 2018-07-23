@@ -20,9 +20,11 @@ jobs:
     steps:
       - checkout
 
-      - run: npm install
-
-      - run: mkdir -p node-target && mkdir -p /tmp/workspace/ && cp -r node-target /tmp/workspace && cp Dockerfile /tmp/workspace/node-target/
+      run:
+        command: |
+          cd exec-ui
+          npm install
+          mkdir -p node-target && mkdir -p /tmp/workspace/ && cp -r node-target /tmp/workspace && cp Dockerfile /tmp/workspace/node-target/
       - persist_to_workspace:
           root: /tmp/workspace/node-target
           paths:
@@ -178,11 +180,11 @@ workflows:
   version: 2
   full_boat:
     jobs: 
-      - lint
+      #- lint
       - test
-      - packagejs:
-          requires:
-            - lint
+      - packagejs
+          #requires:
+            #- lint
           filters:
             branches:
               only:
