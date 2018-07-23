@@ -80,6 +80,7 @@ jobs:
       - run:
           command: |
             cd exec-ui
+            npm install
             npm run lint
   test:
     docker:
