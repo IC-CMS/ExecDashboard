@@ -4,6 +4,7 @@
 #
 version: 2
 jobs:
+
   packagejs:
     docker:
       # specify the version you desire here
@@ -68,6 +69,16 @@ jobs:
             - ./*
             - ./*.jar
             - ./Dockerfile
+  lint:
+    docker:
+      - image: circleci/node
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run: npm run lint
+
   test:
     docker:
       # specify the version you desire here
@@ -164,8 +175,15 @@ workflows:
   version: 2
   full_boat:
     jobs: 
+      - lint
       - test
-      - packagejs
+      - packagejs:
+          requires:
+            - lint
+          filters:
+            branches:
+              only:
+                - master
       - package:
           requires:
             - test
