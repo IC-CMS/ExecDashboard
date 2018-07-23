@@ -56,6 +56,8 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run: pwd
+      - run: ls -al
       - run: mkdir -p java-target
       - run: cp -r target/. java-target
       - run: mkdir -p /tmp/workspace/
