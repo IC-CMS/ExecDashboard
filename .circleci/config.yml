@@ -59,9 +59,9 @@ jobs:
       - run: pwd
       - run: ls -al
       - run: mkdir -p /tmp/workspace/
-      - run: cp -vr exec-analysis/target /tmp/workspace && cp -v exec-analysis/Dockerfile /tmp/workspace/exec-analysis
-      - run: cp -vr exec-api/target /tmp/workspace && cp -v exec-api/Dockerfile /tmp/workspace/exec-api
-      - run: cp -vr exec-core/target /tmp/workspace && cp -v exec-core/Dockerfile /tmp/workspace/exec-core
+      - run: cp -vr exec-analysis /tmp/workspace/exec-analysis && cp -v exec-analysis/Dockerfile /tmp/workspace/exec-analysis
+      - run: cp -vr exec-api /tmp/workspace/exec-api && cp -v exec-api/Dockerfile /tmp/workspace/exec-api
+      - run: cp -vr exec-core /tmp/workspace/exec-core && cp -v exec-core/Dockerfile /tmp/workspace/exec-core
       - persist_to_workspace:
           root: /tmp/workspace/
           paths:
