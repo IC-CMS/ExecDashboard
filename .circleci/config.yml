@@ -58,7 +58,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run: pwd
       - run: ls -al
-      - run: mkdir -p /tmp/workspace/exec-analysis && mkdir -p /tmp/workspace/exec-api && mkdir -p /tmp/workspace/exec-core
+      - run: mkdir -p /tmp/workspace
       - run: cp -r exec-analysis/target/. /tmp/workspace/exec-analysis && cp exec-analysis/Dockerfile /tmp/workspace/exec-analysis
       - run: cp -r exec-api/target/. /tmp/workspace/exec-api && cp exec-api/Dockerfile /tmp/workspace/exec-api
       - run: cp -r exec-core/target/. /tmp/workspace/exec-core && cp exec-core/Dockerfile /tmp/workspace/exec-core
