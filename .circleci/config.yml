@@ -56,7 +56,7 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}      
-      - run: mkdir -p java-target && mkdir -p /tmp/workspace/ && cp -r java-target /tmp/workspace && cp Dockerfile /tmp/workspace/java-target/
+      - run: mkdir -p java-target && mkdir -p /tmp/workspace/ && cp -r java-target/. /tmp/workspace && cp Dockerfile /tmp/workspace/java-target/
       - persist_to_workspace:
           root: /tmp/workspace/java-target
           paths:
@@ -74,7 +74,7 @@ jobs:
     steps:
       - checkout    
       # Download and cache dependencies
-      - run: mvn -s .circleci/.circleci.settings.xml clean dependency:resolve-plugins test
+      - run: mvn -s .circleci/.circleci.settings.xml clean test
       - run:
           name: Save test results
           command: |
