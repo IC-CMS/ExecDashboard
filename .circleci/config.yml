@@ -4,6 +4,29 @@
 #
 version: 2
 jobs:
+  packagejs:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run: npm install
+
+      - run: mkdir -p node-target && mkdir -p /tmp/workspace/ && cp -r node-target /tmp/workspace && cp Dockerfile /tmp/workspace/node-target/
+      - persist_to_workspace:
+          root: /tmp/workspace/node-target
+          paths:
+            - ./*
+            - ./Dockerfile
   package:
     docker:
       # specify the version you desire here
@@ -33,9 +56,9 @@ jobs:
           paths:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}      
-      - run: mkdir -p target && mkdir -p /tmp/workspace/ && cp -r target /tmp/workspace && cp Dockerfile /tmp/workspace/target/
+      - run: mkdir -p java-target && mkdir -p /tmp/workspace/ && cp -r java-target /tmp/workspace && cp Dockerfile /tmp/workspace/java-target/
       - persist_to_workspace:
-          root: /tmp/workspace/target
+          root: /tmp/workspace/java-target
           paths:
             - ./*
             - ./*.jar
@@ -76,36 +99,69 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" pom.xml
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-analysis/pom.xml
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-api/pom.xml
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-core/pom.xml
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-ui/pom.xml
       - run: mvn -s .circleci/.circleci.settings.xml deploy -DskipTests
-  publish:
+  publish_exec_analysis:
     machine:
       enabled: true
     working_directory: ~/repo
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+          at: /tmp/workspace/java-target
       - run: ls -lart /tmp/workspace
-      - run: mkdir target && mv /tmp/workspace/*.jar target/hygieia.jar && mv /tmp/workspace/Dockerfile ./Dockerfile
+      - run: mkdir analysis-target && mv /tmp/workspace/java-target/exec-analysis-*.jar analysis-target/exec-analysis.jar && mv /tmp/workspace/java-target/Dockerfile ./Dockerfile
       - run: |
-          TAG=3.1.$CIRCLE_BUILD_NUM
-          docker build -t sredna/hygieia:$TAG .
-          docker tag sredna/hygieia:$TAG sredna/hygieia:latest
+          TAG=1.1.$CIRCLE_BUILD_NUM
+          docker build -t sredna/hygieia-exec-analysis:$TAG .
+          docker tag sredna/hygieia-exec-analysis:$TAG sredna/hygieia-exec-analysis:latest
           docker login -u $DOCKER_USER -p $DOCKER_PASS
-          docker push sredna/hygieia:$TAG
-          docker push sredna/hygieia:latest
+          docker push sredna/hygieia-exec-analysis:$TAG
+          docker push sredna/hygieia-exec-analysis:latest
+  publish_exec_core:
+    machine:
+      enabled: true
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace/java-target
+      - run: ls -lart /tmp/workspace
+      - run: mkdir core-target && mv /tmp/workspace/java-target/exec-core-*.jar core-target/exec-core.jar && mv /tmp/workspace/java-target/Dockerfile ./Dockerfile
+      - run: |
+          TAG=1.1.$CIRCLE_BUILD_NUM
+          docker build -t sredna/hygieia-exec-core:$TAG .
+          docker tag sredna/hygieia-exec-core:$TAG sredna/hygieia-exec-core:latest
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker push sredna/hygieia-exec-core:$TAG
+          docker push sredna/hygieia-exec-core:latest
+  publish_exec_api:
+    machine:
+      enabled: true
+    working_directory: ~/repo
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace/java-target
+      - run: ls -lart /tmp/workspace
+      - run: mkdir api-target && mv /tmp/workspace/java-target/exec-api-*.jar core-target/exec-api.jar && mv /tmp/workspace/java-target/Dockerfile ./Dockerfile
+      - run: |
+          TAG=1.1.$CIRCLE_BUILD_NUM
+          docker build -t sredna/hygieia-exec-api:$TAG .
+          docker tag sredna/hygieia-exec-api:$TAG sredna/hygieia-exec-api:latest
+          docker login -u $DOCKER_USER -p $DOCKER_PASS
+          docker push sredna/hygieia-exec-api:$TAG
+          docker push sredna/hygieia-exec-api:latest
 workflows:
   version: 2
   full_boat:
     jobs: 
       - test
+      - packagejs
       - package:
           requires:
             - test      
@@ -116,10 +172,24 @@ workflows:
             branches:
               only:
                 - master
-      - publish:
+      - publish_exec_analysis:
           requires:
             - package
           filters:
             branches:
               only:
-                - master                
+                - master
+      - publish_exec_core:
+          requires:
+            - package
+          filters:
+            branches:
+              only:
+                - master
+      - publish_exec_api:
+          requires:
+            - package
+          filters:
+            branches:
+              only:
+                - master

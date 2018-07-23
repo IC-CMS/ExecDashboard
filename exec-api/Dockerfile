@@ -1,7 +1,5 @@
-FROM openjdk:8
-EXPOSE 8080
+FROM openjdk:8-alpine
 VOLUME /var/app/config
-ARG JAR_FILE
-COPY ${JAR_FILE} /var/app/app.jar
-ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/var/app/app.jar"]
+COPY /tmp/workspace/api-target/exec-api.jar /var/app/api.jar
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/var/app/api.jar"]
 CMD [ "--spring.config.location=/var/app/config/application.properties" ]

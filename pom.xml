@@ -188,7 +188,7 @@
                 <module>exec-core</module>
                 <module>exec-analysis</module>
                 <module>exec-api</module>
-                <module>exec-ui</module>
+                <!--<module>exec-ui</module>-->
             </modules>
             <build>
                 <pluginManagement>
