@@ -55,8 +55,12 @@ jobs:
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "pom.xml" }}      
-      - run: mkdir -p java-target && mkdir -p /tmp/workspace/ && cp -r java-target/. /tmp/workspace && cp Dockerfile /tmp/workspace/java-target/
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+      - run: mkdir -p java-target
+      - run: cp -r target/. java-target
+      - run: mkdir -p /tmp/workspace/
+      - run: cp -r java-target/. /tmp/workspace
+      - run: cp Dockerfile /tmp/workspace/java-target/
       - persist_to_workspace:
           root: /tmp/workspace/java-target
           paths:
