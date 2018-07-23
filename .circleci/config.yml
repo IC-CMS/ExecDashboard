@@ -77,6 +77,7 @@ jobs:
 
     steps:
       - checkout
+      - run: npm install
       - run: npm run lint
 
   test:
