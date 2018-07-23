@@ -118,7 +118,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - attach_workspace:
-          at: /tmp/workspace/exec-analysis
+          at: /tmp/workspace
       - run: ls -lart /tmp/workspace/exec-analysis
       - run: mkdir analysis-target && mv /tmp/workspace/exec-analysis/target/exec-analysis-*.jar analysis-target/exec-analysis.jar && mv /tmp/workspace/exec-analysis/Dockerfile ./Dockerfile
       - run: |
@@ -134,7 +134,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - attach_workspace:
-          at: /tmp/workspace/exec-core
+          at: /tmp/workspace
       - run: ls -lart /tmp/workspace/exec-core
       - run: mkdir core-target && mv /tmp/workspace/exec-core/target/exec-core-*.jar core-target/exec-core.jar && mv /tmp/workspace/exec-core/Dockerfile ./Dockerfile
       - run: |
@@ -150,7 +150,7 @@ jobs:
     working_directory: ~/repo
     steps:
       - attach_workspace:
-          at: /tmp/workspace/exec-api
+          at: /tmp/workspace
       - run: ls -lart /tmp/workspace/exec-api
       - run: mkdir api-target && mv /tmp/workspace/exec-api/target/exec-api-*.jar api-target/exec-api.jar && mv /tmp/workspace/exec-api/Dockerfile ./Dockerfile
       - run: |
