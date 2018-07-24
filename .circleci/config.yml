@@ -132,6 +132,14 @@ jobs:
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-api/pom.xml
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-core/pom.xml
       - run: mvn -s .circleci/.circleci.settings.xml deploy -DskipTests
+
+
+  deploy-node:
+    docker:
+      - image: circleci/node
+    working_directory: ~/repo
+    steps:
+      - checkout
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-ui/package.json
       - run:
           command: |
@@ -201,6 +209,13 @@ workflows:
       - package:
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - master
+      - deploy-node:
+          #requires:
+            #- lint
           filters:
             branches:
               only:
