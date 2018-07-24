@@ -153,13 +153,14 @@ jobs:
             cd exec-ui
             npm config set registry https://api.bintray.com/npm/ic-cms/Node
       - run:
+          name: View error logs
+          command: cat /home/circleci/.npm/_logs/*-debug.log
+      - run:
           name: Publish to Bintray
           command: |
             cd exec-ui
             npm publish --registry https://api.bintray.com/npm/ic-cms/Node
-      - run:
-          name: View error logs
-          command: cat /home/circleci/.npm/_logs/*-debug.log
+
   publish_exec_analysis:
     machine:
       enabled: true
