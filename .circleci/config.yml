@@ -144,7 +144,9 @@ jobs:
       - run:
           name: Authenticate with Bintray
           command: curl -u$NPM_USER:$NPM_PASS https://api.bintray.com/npm/ic-cms/Node/auth > ~/repo/.npmrc
+      - run: cat ~/.npmrc
       - run:
+          name: Publish to Bintray
           command: |
             cd exec-ui
             npm publish --registry https://api.bintray.com/npm/ic-cms/Node
