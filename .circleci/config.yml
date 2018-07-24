@@ -94,6 +94,11 @@ jobs:
     steps:
       - checkout    
       # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
       - run: mvn -s .circleci/.circleci.settings.xml clean test
       - run:
           name: Save test results
@@ -127,6 +132,8 @@ jobs:
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-api/pom.xml
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-core/pom.xml
       - run: mvn -s .circleci/.circleci.settings.xml deploy -DskipTests
+      - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-ui/package.json
+      - run: npm publish --registry https://api.bintray.com/npm/ic-cms/Node
   publish_exec_analysis:
     machine:
       enabled: true

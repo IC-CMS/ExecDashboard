@@ -1,6 +1,6 @@
 {
-  "name": "hygieia-executive",
-  "version": "0.0.0",
+  "name": "hygieia-exec-ui",
+  "version": "1.0.0-BUILDNUMBER",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -13,7 +13,7 @@
     "local": "ng serve --host=0.0.0.0 --port=4200 --proxy-config=proxy.config.json --env=local",
     "prod": "ng serve --host=0.0.0.0 --port=4200 --proxy-config=proxy.config.json --env=prod"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^4.4.7",
     "@angular/common": "^4.4.7",
