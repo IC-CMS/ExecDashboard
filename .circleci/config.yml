@@ -153,8 +153,7 @@ jobs:
           name: Publish to Bintray
           command: |
             cd exec-ui
-            npm publish --registry https://api.bintray.com/npm/ic-cms/Node
-            ls -al
+            npm publish
 
   publish_exec_analysis:
     machine:

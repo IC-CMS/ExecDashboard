@@ -2,6 +2,7 @@
   "name": "hygieia-exec-ui",
   "version": "1.0.0-BUILDNUMBER",
   "license": "MIT",
+  "publishConfig": {"registry":"https://api.bintray.com/npm/ic-cms/Node"},
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
