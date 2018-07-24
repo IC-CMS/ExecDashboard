@@ -143,8 +143,8 @@ jobs:
       - run: VERSION_NUM=($CIRCLE_BUILD_NUM + 1) && sed -i "s/BUILDNUMBER/$VERSION_NUM/g" exec-ui/package.json
       - run:
           name: Authenticate with Bintray
-          command: curl -u$NPM_USER:$NPM_PASS https://api.bintray.com/npm/ic-cms/Node/auth > ~/repo/.npmrc
-      - run: cat ~/repo/.npmrc
+          command: curl -u$NPM_USER:$NPM_PASS https://api.bintray.com/npm/ic-cms/Node/auth > ~/.npmrc
+      - run: cat ~/.npmrc
       - run:
           name: Publish to Bintray
           command: |
