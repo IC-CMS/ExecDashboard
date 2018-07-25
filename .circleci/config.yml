@@ -24,7 +24,7 @@ jobs:
           command: |
             cd exec-ui
             npm install
-            mkdir -p /tmp/workspace/ && cp -r exec-ui /tmp/workspace/ && cp Dockerfile /tmp/workspace/exec-ui/
+      - run: mkdir -p /tmp/workspace/ && cp -r exec-ui /tmp/workspace/exec-ui && cp exec-ui/Dockerfile /tmp/workspace/exec-ui/
 
       - persist_to_workspace:
           root: /tmp/workspace/
