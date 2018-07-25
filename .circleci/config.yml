@@ -31,6 +31,8 @@ jobs:
           paths:
             - ./*
             - ./Dockerfile
+      - run: ls -al
+      - run: ls -al exec-ui
   package:
     docker:
       # specify the version you desire here
@@ -154,6 +156,23 @@ jobs:
           command: |
             cd exec-ui
             npm publish
+
+  publish_exec_ui:
+      machine:
+        enabled: true
+      working_directory: ~/repo
+      steps:
+        - attach_workspace:
+            at: /tmp/workspace
+        - run: ls -lart /tmp/workspace/exec-ui/node-target
+        - run: mkdir ui-target && mv /tmp/workspace/exec-ui/node-target/* ui-target/ && mv /tmp/workspace/exec-ui/Dockerfile ./Dockerfile
+        - run: |
+            TAG=1.1.$CIRCLE_BUILD_NUM
+            docker build -t sredna/hygieia-exec-ui:$TAG .
+            docker tag sredna/hygieia-exec-ui:$TAG sredna/hygieia-exec-ui:latest
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push sredna/hygieia-exec-ui:$TAG
+            docker push sredna/hygieia-exec-ui:latest
 
   publish_exec_analysis:
     machine:
