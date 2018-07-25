@@ -31,6 +31,7 @@ jobs:
           paths:
             - ./*
             - ./Dockerfile
+      - run: pwd
       - run: ls -al
       - run: ls -al exec-ui
   package:
@@ -164,15 +165,16 @@ jobs:
       steps:
         - attach_workspace:
             at: /tmp/workspace
-        - run: ls -lart /tmp/workspace/exec-ui/
-        - run: mkdir ui-target && mv /tmp/workspace/exec-ui/* ui-target/ && mv /tmp/workspace/exec-ui/Dockerfile ./Dockerfile
-        - run: |
-            TAG=1.1.$CIRCLE_BUILD_NUM
-            docker build -t sredna/hygieia-exec-ui:$TAG .
-            docker tag sredna/hygieia-exec-ui:$TAG sredna/hygieia-exec-ui:latest
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
-            docker push sredna/hygieia-exec-ui:$TAG
-            docker push sredna/hygieia-exec-ui:latest
+        - run: ls -lart /tmp/workspace/
+        - run: ls -al /tmp/workspace/exec-ui/
+        #- run: mkdir ui-target && mv /tmp/workspace/exec-ui/* ui-target/ && mv /tmp/workspace/exec-ui/Dockerfile ./Dockerfile
+#        - run: |
+#            TAG=1.1.$CIRCLE_BUILD_NUM
+#            docker build -t sredna/hygieia-exec-ui:$TAG .
+#            docker tag sredna/hygieia-exec-ui:$TAG sredna/hygieia-exec-ui:latest
+#            docker login -u $DOCKER_USER -p $DOCKER_PASS
+#            docker push sredna/hygieia-exec-ui:$TAG
+#            docker push sredna/hygieia-exec-ui:latest
 
   publish_exec_analysis:
     machine:
