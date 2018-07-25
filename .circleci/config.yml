@@ -170,8 +170,7 @@ jobs:
         - run: cat /tmp/workspace/exec-ui/Dockerfile
         - run: mkdir ui-target
         - run: mv /tmp/workspace/exec-ui/Dockerfile ./Dockerfile
-        - run: mv /tmp/workspace/exec-ui/* ui-target/
-        - run: mv /tmp/workspace/exec-ui/.* ui-target/
+        - run: cp /tmp/workspace/exec-ui/. ui-target/
         - run: ls -al ui-target
         - run: |
             TAG=1.1.$CIRCLE_BUILD_NUM
