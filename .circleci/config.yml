@@ -27,7 +27,7 @@ jobs:
             mkdir -p exec-ui && mkdir -p /tmp/workspace/ && cp -r exec-ui /tmp/workspace/ && cp Dockerfile /tmp/workspace/exec-ui/
 
       - persist_to_workspace:
-          root: /tmp/workspace/exec-ui
+          root: /tmp/workspace/
           paths:
             - ./*
             - ./Dockerfile
