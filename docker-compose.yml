@@ -13,7 +13,7 @@ services:
       - exec-db
 
   exec-ui:
-    build: exec-ui
+    build: sredna/hygieia-exec-ui
     ports:
       - "4200:80"
     depends_on:
@@ -23,7 +23,7 @@ services:
 
   exec-api:
     build: 
-      context: exec-api
+      context: sredna/hygieia-exec-api
       args:
         JAR_FILE: "./target/exec-api*.jar"
     volumes:
@@ -33,7 +33,7 @@ services:
 
   exec-analysis:
     build:
-      context: exec-analysis
+      context: sredna/hygieia-exec-analysis
       args:
         JAR_FILE: "./target/exec-analysis*.jar"
     volumes:

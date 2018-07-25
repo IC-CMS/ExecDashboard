@@ -1,8 +1,10 @@
 {
   "name": "hygieia-exec-ui",
-  "version": "1.1.BUILDNUMBER",
+  "version": "1.0.BUILDNUMBER",
   "license": "MIT",
-  "publishConfig": {"registry":"https://api.bintray.com/npm/ic-cms/Node"},
+  "publishConfig": {
+    "registry": "https://api.bintray.com/npm/ic-cms/Node"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
