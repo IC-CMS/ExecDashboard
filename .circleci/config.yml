@@ -249,20 +249,20 @@ workflows:
             branches:
               only:
                 - master
-      - deploy-node:
-          #requires:
-            #- lint
-          filters:
-            branches:
-              only:
-                - master
-      - deploy:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - master
+#      - deploy-node:
+#          #requires:
+#            #- lint
+#          filters:
+#            branches:
+#              only:
+#                - master
+#      - deploy:
+#          requires:
+#            - test
+#          filters:
+#            branches:
+#              only:
+#                - master
       - publish_exec_ui:
           requires:
             - packagejs
