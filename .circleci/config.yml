@@ -256,6 +256,13 @@ workflows:
             branches:
               only:
                 - master
+      - publish_exec_ui:
+          requires:
+            - packagejs
+          filters:
+            branches:
+              only:
+                - master
       - publish_exec_analysis:
           requires:
             - package
