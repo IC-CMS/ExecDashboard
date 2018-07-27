@@ -6,7 +6,7 @@ services:
       - "27000:27017"
     volumes:
       - "execdb-data:/data/db"
-
+#This needs to be containerized
   exec-db-setup:
     build: exec-db
     depends_on:
