@@ -23,10 +23,10 @@ services:
 
   exec-api:
     image: sredna/hygieia-exec-api
-    build:
-      context: exec-api
-      args:
-        JAR_FILE: "./target/exec-api*.jar"
+    #build:
+    #  context: exec-api
+    #  args:
+    #    JAR_FILE: "./target/exec-api*.jar"
     volumes:
       - "./config/api:/var/app/config"
     depends_on:
@@ -34,10 +34,10 @@ services:
 
   exec-analysis:
     image: sredna/hygieia-exec-analysis
-    build:
-      context: exec-analysis
-      args:
-        JAR_FILE: "./target/exec-analysis*.jar"
+    #build:
+    #  context: exec-analysis
+    #  args:
+    #    JAR_FILE: "./target/exec-analysis*.jar"
     volumes:
       - "./config/analysis:/var/app/config"
 

@@ -6,4 +6,4 @@ ADD db-setup.js /tmp/db-setup.js
 RUN chmod +x /tmp/db-setup.sh
 RUN chmod +x /tmp/db-setup.js
 
-CMD ["/tmp/db-setup.sh"]
+RUN /tmp/db-setup.sh
