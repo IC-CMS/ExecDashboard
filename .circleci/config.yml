@@ -64,6 +64,8 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run: mkdir -p /tmp/workspace/
+      - run: pwd
+      - run: ls -al
       - run: cp -r config/analysis/application.properties /tmp/workspace/exec-analysis
       - run: cp -r config/api/application.properties /tmp/workspace/exec-api
       - run: cp -r exec-analysis /tmp/workspace/exec-analysis && cp exec-analysis/Dockerfile /tmp/workspace/exec-analysis
