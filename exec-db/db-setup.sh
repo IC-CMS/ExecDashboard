@@ -1,1 +1,1 @@
-  mongo db/admin < /tmp/db-setup.js
+  mongo < /tmp/db-setup.js
