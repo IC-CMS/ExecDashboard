@@ -64,6 +64,8 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run: mkdir -p /tmp/workspace/
+      - run: cp -r config/analysis/application.properties /tmp/workspace/exec-analysis
+      - run: cp -r config/api/application.properties /tmp/workspace/exec-api
       - run: cp -r exec-analysis /tmp/workspace/exec-analysis && cp exec-analysis/Dockerfile /tmp/workspace/exec-analysis
       - run: cp -r exec-api /tmp/workspace/exec-api && cp exec-api/Dockerfile /tmp/workspace/exec-api
       - run: cp -r exec-core /tmp/workspace/exec-core && cp exec-core/Dockerfile /tmp/workspace/exec-core
@@ -189,7 +191,10 @@ jobs:
       - attach_workspace:
           at: /tmp/workspace
       - run: ls -lart /tmp/workspace/exec-analysis/target
-      - run: mkdir analysis-target && mv /tmp/workspace/exec-analysis/target/exec-analysis-*.jar analysis-target/exec-analysis.jar && mv /tmp/workspace/exec-analysis/Dockerfile ./Dockerfile
+      - run: mkdir -p analysis-target 
+      - run: mv /tmp/workspace/exec-analysis/target/exec-analysis-*.jar analysis-target/exec-analysis.jar
+      - run: mv /tmp/workspace/exec-analysis/application.properties ./application.properties
+      - run: mv /tmp/workspace/exec-analysis/Dockerfile ./Dockerfile
       - run: |
           TAG=1.1.$CIRCLE_BUILD_NUM
           docker build -t sredna/hygieia-exec-analysis:$TAG .
