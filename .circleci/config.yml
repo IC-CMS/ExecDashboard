@@ -64,17 +64,12 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
       - run: mkdir -p /tmp/workspace/
-      - run: pwd
-      - run: ls -al
       - run: cp -r exec-analysis /tmp/workspace/
       - run: cp exec-analysis/Dockerfile /tmp/workspace/exec-analysis
-      - run: cp -r config/analysis/application.properties /tmp/workspace/exec-analysis
       - run: cp -r exec-api /tmp/workspace/
       - run: cp exec-api/Dockerfile /tmp/workspace/exec-api
-      - run: cp -r config/api/application.properties /tmp/workspace/exec-api
       - run: cp -r exec-core /tmp/workspace/
       - run: cp exec-core/Dockerfile /tmp/workspace/exec-core
-      - run: ls -al /tmp/workspace
       - persist_to_workspace:
           root: /tmp/workspace/
           paths:
@@ -199,7 +194,6 @@ jobs:
       - run: ls -lart /tmp/workspace/exec-analysis/target
       - run: mkdir -p analysis-target 
       - run: mv /tmp/workspace/exec-analysis/target/exec-analysis-*.jar analysis-target/exec-analysis.jar
-      - run: mv /tmp/workspace/exec-analysis/application.properties ./application.properties
       - run: mv /tmp/workspace/exec-analysis/Dockerfile ./Dockerfile
       - run: |
           TAG=1.1.$CIRCLE_BUILD_NUM
@@ -234,7 +228,6 @@ jobs:
       - run: ls -lart /tmp/workspace/exec-api/target
       - run: mkdir -p api-target
       - run: mv /tmp/workspace/exec-api/target/exec-api-*.jar api-target/exec-api.jar
-      - run: mv /tmp/workspace/exec-api/application.properties ./application.properties
       - run: mv /tmp/workspace/exec-api/Dockerfile ./Dockerfile
       - run: |
           TAG=1.1.$CIRCLE_BUILD_NUM
