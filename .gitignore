@@ -43,6 +43,6 @@ logs
 .pmdruleset.xml
 .pmd
 .classpath
-#application.properties
+application.properties
 
 spark-warehouse/
